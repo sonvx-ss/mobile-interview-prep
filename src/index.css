@@ -1,0 +1,124 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+:root[data-theme='dark'] {
+  color-scheme: dark;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-white text-ink-800 font-sans antialiased dark:bg-ink-950 dark:text-ink-100;
+  }
+  ::selection {
+    @apply bg-accent-200 text-ink-900;
+  }
+  *:focus-visible {
+    @apply outline-none ring-2 ring-accent-400 ring-offset-2 ring-offset-white dark:ring-offset-ink-950;
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-xl border border-ink-200 bg-white dark:border-ink-800 dark:bg-ink-900;
+  }
+  .btn {
+    @apply inline-flex select-none items-center justify-center gap-1.5 rounded-lg border border-ink-200
+           px-3 py-1.5 text-sm font-medium text-ink-700 transition
+           hover:border-ink-300 hover:bg-ink-50 active:scale-[.98]
+           disabled:pointer-events-none disabled:opacity-40
+           dark:border-ink-700 dark:text-ink-200 dark:hover:border-ink-600 dark:hover:bg-ink-800;
+  }
+  .btn-primary {
+    @apply border-transparent bg-accent-600 text-white hover:border-transparent hover:bg-accent-700
+           dark:border-transparent dark:text-white dark:hover:bg-accent-500;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[11px] font-medium leading-4;
+  }
+}
+
+/* ---- Prose (đáp án) ---- */
+.prose-answer {
+  @apply text-[15px] leading-7 text-ink-700 dark:text-ink-200;
+}
+.prose-answer > * + * {
+  @apply mt-3;
+}
+.prose-answer p {
+  @apply leading-7;
+}
+.prose-answer strong {
+  @apply font-semibold text-ink-900 dark:text-white;
+}
+.prose-answer ul {
+  @apply list-disc space-y-1.5 pl-5;
+}
+.prose-answer ol {
+  @apply list-decimal space-y-1.5 pl-5;
+}
+.prose-answer li > ul,
+.prose-answer li > ol {
+  @apply mt-1.5;
+}
+.prose-answer h3 {
+  @apply mt-5 text-[13px] font-semibold uppercase tracking-wide text-ink-500 dark:text-ink-400;
+}
+.prose-answer h4 {
+  @apply mt-4 font-semibold text-ink-900 dark:text-white;
+}
+.prose-answer a {
+  @apply text-accent-600 underline decoration-accent-300 underline-offset-2 hover:text-accent-700 dark:text-accent-300;
+}
+.prose-answer blockquote {
+  @apply border-l-2 border-accent-300 pl-3 text-ink-600 dark:border-accent-700 dark:text-ink-300;
+}
+.prose-answer code:not(pre code) {
+  @apply rounded border border-ink-200 bg-ink-50 px-1 py-px font-mono text-[13px] text-ink-800
+         dark:border-ink-700 dark:bg-ink-800 dark:text-ink-100;
+}
+.prose-answer pre {
+  @apply overflow-x-auto rounded-lg border border-ink-200 bg-ink-50 p-3 font-mono text-[13px] leading-6
+         dark:border-ink-700 dark:bg-ink-900/80;
+}
+.prose-answer table {
+  @apply block w-full overflow-x-auto border-collapse text-sm sm:table;
+}
+.prose-answer thead {
+  @apply bg-ink-50 dark:bg-ink-800/60;
+}
+.prose-answer th,
+.prose-answer td {
+  @apply border border-ink-200 px-2.5 py-1.5 text-left align-top dark:border-ink-700;
+}
+.prose-answer th {
+  @apply font-semibold text-ink-900 dark:text-white;
+}
+
+/* ---- highlight.js: theme sáng + tối ---- */
+.hljs-comment, .hljs-quote { @apply text-ink-400 italic; }
+.hljs-keyword, .hljs-selector-tag, .hljs-literal, .hljs-type { @apply text-purple-700 dark:text-purple-300; }
+.hljs-string, .hljs-meta-string, .hljs-regexp { @apply text-emerald-700 dark:text-emerald-300; }
+.hljs-number, .hljs-symbol, .hljs-bullet { @apply text-orange-700 dark:text-orange-300; }
+.hljs-title, .hljs-title\.function_, .hljs-section, .hljs-name { @apply text-accent-700 dark:text-accent-300; }
+.hljs-attr, .hljs-attribute, .hljs-variable, .hljs-template-variable { @apply text-rose-700 dark:text-rose-300; }
+.hljs-built_in, .hljs-class .hljs-title { @apply text-teal-700 dark:text-teal-300; }
+.hljs-meta, .hljs-doctag { @apply text-ink-500; }
+.hljs-emphasis { @apply italic; }
+.hljs-strong { @apply font-semibold; }
+
+/* Thanh cuộn mảnh */
+.thin-scroll::-webkit-scrollbar { width: 8px; height: 8px; }
+.thin-scroll::-webkit-scrollbar-thumb { @apply rounded-full bg-ink-200 dark:bg-ink-700; }
+.thin-scroll::-webkit-scrollbar-track { background: transparent; }
+
+@media print {
+  .no-print { display: none !important; }
+}
