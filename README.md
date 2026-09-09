@@ -35,12 +35,18 @@ npm run build      # ra dist/
 npm run preview
 ```
 
-## Deploy GitHub Pages
+## CI & Deploy
 
-Workflow `.github/workflows/deploy.yml` tự deploy khi push lên `main`.
-Cần bật một lần: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+`.github/workflows/deploy.yml` chạy `typecheck` + `build` trên mọi push và pull request.
 
-Workflow tự đặt `VITE_BASE=/<tên-repo>/`. Nếu bạn dùng user page (`<user>.github.io`) thì sửa
+Phần deploy GitHub Pages **chỉ kích hoạt khi repo là public** — Pages cho repo private yêu cầu
+gói Pro/Team. Repo đang private thì workflow vẫn xanh, chỉ bỏ qua bước deploy.
+
+Muốn có link công khai: đổi repo sang public (Settings → General → Danger Zone → Change visibility),
+rồi bật **Settings → Pages → Source: GitHub Actions**. Push kế tiếp sẽ tự deploy tới
+`https://<user>.github.io/<tên-repo>/`.
+
+Workflow tự đặt `VITE_BASE=/<tên-repo>/`. Nếu dùng user page (`<user>.github.io`) thì sửa
 `VITE_BASE: /` trong workflow.
 
 ## Thêm câu hỏi mới

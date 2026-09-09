@@ -1,8 +1,9 @@
-name: Deploy to GitHub Pages
+name: CI & Deploy
 
 on:
   push:
     branches: [main]
+  pull_request:
   workflow_dispatch:
 
 permissions:
@@ -10,7 +11,6 @@ permissions:
   pages: write
   id-token: write
 
-# Chỉ một lượt deploy tại một thời điểm; huỷ lượt đang chạy nếu có push mới.
 concurrency:
   group: pages
   cancel-in-progress: true
@@ -32,7 +32,7 @@ jobs:
 
       - name: Build
         # Project page được serve tại /<tên-repo>/ nên base phải khớp.
-        # Nếu bạn dùng user/organization page (<user>.github.io) thì đổi thành VITE_BASE=/
+        # Nếu dùng user page (<user>.github.io) thì đổi thành VITE_BASE=/
         run: npm run build
         env:
           VITE_BASE: /${{ github.event.repository.name }}/
@@ -40,14 +40,21 @@ jobs:
       - name: Thêm 404.html để hash-router không lỗi khi refresh
         run: cp dist/index.html dist/404.html
 
+      # --- Các bước dưới chỉ chạy khi repo public ---
+      # GitHub Pages cho repo private yêu cầu gói Pro/Team. Khi repo còn private,
+      # job này dừng ở đây và vẫn xanh (CI: typecheck + build).
+      # Đổi repo sang public là deploy tự chạy, không cần sửa gì thêm.
       - uses: actions/configure-pages@v5
+        if: github.event_name != 'pull_request' && github.event.repository.visibility == 'public'
 
       - uses: actions/upload-pages-artifact@v3
+        if: github.event_name != 'pull_request' && github.event.repository.visibility == 'public'
         with:
           path: dist
 
   deploy:
     needs: build
+    if: github.event_name != 'pull_request' && github.event.repository.visibility == 'public'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
