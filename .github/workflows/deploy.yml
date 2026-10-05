@@ -44,11 +44,10 @@ jobs:
       # GitHub Pages cho repo private yêu cầu gói Pro/Team. Khi repo còn private,
       # job này dừng ở đây và vẫn xanh (CI: typecheck + build).
       # Đổi repo sang public là deploy tự chạy, không cần sửa gì thêm.
+      # Pages site đã được bật sẵn (build_type=workflow). Không dùng `enablement: true`
+      # ở đây vì GITHUB_TOKEN không có quyền tạo site -> "Resource not accessible by integration".
       - uses: actions/configure-pages@v5
         if: github.event_name != 'pull_request' && github.event.repository.visibility == 'public'
-        with:
-          # Tự tạo Pages site + đặt source = GitHub Actions, khỏi phải vào Settings bấm tay.
-          enablement: true
 
       - uses: actions/upload-pages-artifact@v3
         if: github.event_name != 'pull_request' && github.event.repository.visibility == 'public'
