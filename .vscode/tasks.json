@@ -1,0 +1,62 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "dev",
+      "type": "shell",
+      "command": "npm run dev",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "vite",
+        "pattern": {
+          "regexp": "^\\s*(.*)$",
+          "file": 1
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": ".*VITE.*",
+          "endsPattern": ".*Local:.*http.*"
+        }
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "typecheck",
+      "type": "shell",
+      "command": "npm run typecheck",
+      "problemMatcher": ["$tsc"],
+      "presentation": { "reveal": "always", "panel": "dedicated" }
+    },
+    {
+      "label": "build",
+      "type": "shell",
+      "command": "npm run build",
+      "problemMatcher": ["$tsc"],
+      "presentation": { "reveal": "always", "panel": "dedicated" }
+    },
+    {
+      "label": "preview",
+      "type": "shell",
+      "command": "npm run preview",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "vite",
+        "pattern": { "regexp": "^\\s*(.*)$", "file": 1 },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": ".*vite preview.*",
+          "endsPattern": ".*Local:.*http.*"
+        }
+      },
+      "dependsOn": "build",
+      "presentation": { "reveal": "always", "panel": "dedicated" }
+    }
+  ]
+}

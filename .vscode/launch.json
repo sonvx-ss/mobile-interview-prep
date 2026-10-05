@@ -1,0 +1,45 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    
+    {
+      "name": "Dev: Chrome + Vite",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:5173/#/",
+      "webRoot": "${workspaceFolder}",
+      "preLaunchTask": "dev",
+      "sourceMaps": true,
+      "sourceMapPathOverrides": {
+        "webpack:///./src/*": "${webRoot}/src/*",
+        "/@fs/*": "/*"
+      }
+    },
+    {
+      "name": "Dev: Edge + Vite",
+      "type": "msedge",
+      "request": "launch",
+      "url": "http://localhost:5173/#/",
+      "webRoot": "${workspaceFolder}",
+      "preLaunchTask": "dev",
+      "sourceMaps": true
+    },
+    {
+      "name": "Gắn vào Chrome đang chạy (port 9222)",
+      "type": "chrome",
+      "request": "attach",
+      "port": 9222,
+      "url": "http://localhost:5173/*",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
+      "name": "Preview bản build",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:4173/#/",
+      "webRoot": "${workspaceFolder}/dist",
+      "preLaunchTask": "preview"
+    }
+  ],
+  "compounds": []
+}
